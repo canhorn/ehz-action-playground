@@ -8,6 +8,9 @@ jobs:
     branch_cleanup:
         name: Cleanup Branch
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
         steps:
             - name: Message PR of Cleanup Successful
               uses: thollander/actions-comment-pull-request@main
@@ -17,10 +20,10 @@ jobs:
 
             - name: Delete branch
               run: |
-                    echo github.event.pull_request.base.ref: ${{ github.event.pull_request.base.ref }}
-                    echo github.repository: ${{ github.repository }}
-                    echo github.head_ref: ${{ github.head_ref }}
-                #   curl -s -X DELETE -u username:${{secrets.GITHUB_TOKEN}} \
-                #     "https://api.github.com/repos/${{ github.repository }}/git/refs/heads/${{ github.head_ref }}"
+                  echo github.event.pull_request.base.ref: ${{ github.event.pull_request.base.ref }}
+                  echo github.repository: ${{ github.repository }}
+                  echo github.head_ref: ${{ github.head_ref }}
+              #   curl -s -X DELETE -u username:${{secrets.GITHUB_TOKEN}} \
+              #     "https://api.github.com/repos/${{ github.repository }}/git/refs/heads/${{ github.head_ref }}"
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
